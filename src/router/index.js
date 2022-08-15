@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import SignUpView from "../views/SignUpView.vue";
 import LogInView from "../views/LogInView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import LogOutView from "../views/LogOutView.vue";
 
 const routes = [
   {
@@ -22,6 +23,12 @@ const routes = [
     path: "/login",
     name: "LogInView",
     component: LogInView,
+  },
+
+  {
+    path: "/logout",
+    name: "LogOutView",
+    component: LogOutView,
   },
 
   {

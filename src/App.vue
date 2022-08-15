@@ -70,7 +70,9 @@
     </div>
   </nav>
 
-  <router-view class="mt-3"> </router-view>
+
+  <div class="mt-3"/>
+  <router-view> </router-view>
 </template>
 
 <script>

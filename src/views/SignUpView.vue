@@ -43,8 +43,29 @@
         <div class="notification is-danger" v-if="errors.length">
           <div v-for="error in errors" v-bind:key="error">
             <div class="alert alert-danger" role="alert">
-                {{ error }}
+              {{ error }}
             </div>
+          </div>
+        </div>
+        <div class="mb-3"></div>
+        <div class="mb-3">
+          <div class="row">
+            <button
+              type="button"
+              class="btn btn-sm btn-lg btn-primary col mr-4"
+              @click="toggle"
+              :disabled="!imEmployee"
+            >
+              I'm employee
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-lg btn-primary col"
+              @click="toggle"
+              :disabled="imEmployee"
+            >
+              I'm employer
+            </button>
           </div>
         </div>
         <button
@@ -67,6 +88,7 @@ export default {
   name: "SignUpView",
   data() {
     return {
+      imEmployee: true,
       email: "",
       password: "",
       password2: "",
@@ -86,10 +108,13 @@ export default {
         this.errors.push("The passwords doesn't match");
       }
       if (!this.errors.length) {
+        const user_type = this.imEmployee ? "APPLICANT" : "COMPANY";
+
         const formData = {
           user: {
             email: this.email,
             password: this.password,
+            user_type: user_type
           },
         };
         axios
@@ -110,6 +135,10 @@ export default {
             }
           });
       }
+    },
+
+    toggle() {
+      this.imEmployee = !this.imEmployee;
     },
   },
 };
