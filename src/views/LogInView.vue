@@ -37,7 +37,7 @@
           </div>
         </div>
         <button
-          @click.prevent="submitForm"
+          @click.prevent="submitLoginForm"
           type="submit"
           class="btn btn-primary"
         >
@@ -48,7 +48,6 @@
     <div class="col" />
   </div>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -63,40 +62,37 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    async submitLoginForm() {
       this.errors = [];
-      if (this.email === "") {
-        this.errors.push("The email is missing");
-      }
-      if (this.password === "") {
-        this.errors.push("The password is too short");
-      }
 
-      if (!this.errors.length) {
-        const formData = {
-          user: {
-            email: this.email,
-            password: this.password,
-          },
-        };
-        axios
-          .post("account/users/", formData)
-          .then(() => {
-            console.log("success");
-            this.$router.push("/login");
-          })
-          .catch((error) => {
-            if (error.response) {
-              for (const property in error.response.data) {
-                this.errors.push(
-                  `${property}: ${error.response.data[property]}`
-                );
-              }
-            } else if (error.message) {
-              this.errors.push("Something went wrong. Please try again");
+      axios.defaults.headers.common["Authorization"] = "";
+      localStorage.removeItem("token");
+
+      const formData = {
+        username: this.email,
+        password: this.password,
+      };
+
+      await axios
+        .post("/account/login/", formData)
+        .then((response) => {
+          const token = response.data.token;
+          this.$store.commit("setToken", token);
+
+          axios.defaults.headers.common["Authorization"] = "Token " + token;
+          localStorage.setItem("token", token);
+          const toPath = this.$route.query.to || "/";
+          this.$router.push(toPath);
+        })
+        .catch((error) => {
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`);
             }
-          });
-      }
+          } else {
+            this.errors.push("Something went wrong. Please try again");
+          }
+        });
     },
   },
 };

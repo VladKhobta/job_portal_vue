@@ -48,7 +48,7 @@
           </div>
         </div>
         <button
-          @click.prevent="submitForm"
+          @click.prevent="submitSignupForm"
           type="submit"
           class="btn btn-primary"
         >
@@ -74,7 +74,7 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    submitSignupForm() {
       this.errors = [];
       if (this.email === "") {
         this.errors.push("The email is missing");

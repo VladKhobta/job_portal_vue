@@ -36,6 +36,14 @@
               >Log Out</router-link
             >
           </li>
+          <li class="nav-item">
+            <router-link
+              to="/profile"
+              class="nav-link active"
+              aria-current="page"
+              >My Profile</router-link
+            >
+          </li>
         </ul>
 
         <ul v-else class="navbar-nav ms-auto mb-2 mb-lg-0">
