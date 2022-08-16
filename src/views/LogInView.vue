@@ -77,10 +77,16 @@ export default {
         .post("/account/login/", formData)
         .then((response) => {
           const token = response.data.token;
+          const user_id = response.data.user_id;
+          const email = response.data.email;
+          const phone_number = response.data.phone_number;
           this.$store.commit("setToken", token);
 
           axios.defaults.headers.common["Authorization"] = "Token " + token;
           localStorage.setItem("token", token);
+          localStorage.setItem("user_id", user_id);
+          localStorage.setItem("email", email);
+          localStorage.setItem("phone_number", phone_number);
           const toPath = this.$route.query.to || "/";
           this.$router.push(toPath);
         })
@@ -93,6 +99,8 @@ export default {
             this.errors.push("Something went wrong. Please try again");
           }
         });
+      
+      
     },
   },
 };

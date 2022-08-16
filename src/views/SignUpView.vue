@@ -118,7 +118,7 @@ export default {
           },
         };
         axios
-          .post("account/users/", formData)
+          .post("account/", formData)
           .then(() => {
             console.log("success");
             this.$router.push("/login");
