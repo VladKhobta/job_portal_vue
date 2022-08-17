@@ -80,6 +80,7 @@ export default {
           const user_id = response.data.user_id;
           const email = response.data.email;
           const phone_number = response.data.phone_number;
+          const user_type = response.data.user_type;
           this.$store.commit("setToken", token);
 
           axios.defaults.headers.common["Authorization"] = "Token " + token;
@@ -87,6 +88,7 @@ export default {
           localStorage.setItem("user_id", user_id);
           localStorage.setItem("email", email);
           localStorage.setItem("phone_number", phone_number);
+          localStorage.setItem("user_type", user_type)
           const toPath = this.$route.query.to || "/";
           this.$router.push(toPath);
         })

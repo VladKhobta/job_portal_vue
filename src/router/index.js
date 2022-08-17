@@ -5,6 +5,7 @@ import SignUpView from "../views/SignUpView.vue";
 import LogInView from "../views/LogInView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import LogOutView from "../views/LogOutView.vue";
+import VacancyPostingView from "../views/VacancyPostingView.vue";
 
 const routes = [
   {
@@ -36,6 +37,12 @@ const routes = [
     name: "ProfileView",
     component: ProfileView,
   },
+
+  {
+    path: "/vacancy_posting",
+    name: "VacancyPostingView",
+    component: VacancyPostingView,
+  }
 ];
 
 const router = createRouter({

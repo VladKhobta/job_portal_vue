@@ -54,7 +54,7 @@
               type="button"
               class="btn btn-sm btn-lg btn-primary col mr-4"
               @click="toggle"
-              :disabled="!imEmployee"
+              :disabled="imEmployee"
             >
               I'm employee
             </button>
@@ -62,7 +62,7 @@
               type="button"
               class="btn btn-sm btn-lg btn-primary col"
               @click="toggle"
-              :disabled="imEmployee"
+              :disabled="!imEmployee"
             >
               I'm employer
             </button>
