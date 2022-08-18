@@ -36,6 +36,32 @@
             class="form-control mb-2"
           />
         </div>
+        <div v-else>
+          <input
+            :disabled="!onEditing"
+            v-model="this.company_info.designation"
+            type="text"
+            class="form-control mb-2"
+          />
+          <input
+            :disabled="!onEditing"
+            v-model="this.company_info.description"
+            type="text"
+            class="form-control mb-2"
+          />
+          <input
+            :disabled="!onEditing"
+            v-model="this.company_info.establishment_date"
+            type="number"
+            class="form-control mb-2"
+          />
+          <input
+            :disabled="!onEditing"
+            v-model="this.company_info.website_url"
+            type="text"
+            class="form-control mb-2"
+          />
+        </div>
 
         <button
           :disabled="onEditing"
@@ -53,14 +79,14 @@
           Save
         </button>
       </form>
-      
-        <div v-if="user_info.user_type === 'COMPANY'">
-          <button class="btn btn-primary mt-2"><router-link
-              to="/vacancy_posting"
-              class="nav-link active"
-              >Post new vacancy</router-link
-            ></button>
-        </div>
+
+      <div v-if="user_info.user_type === 'COMPANY'">
+        <button class="btn btn-primary mt-2">
+          <router-link to="/vacancy_posting" class="nav-link active"
+            >Post new vacancy</router-link
+          >
+        </button>
+      </div>
     </div>
 
     <div class="col" />
@@ -86,7 +112,10 @@ export default {
         current_salary: 0,
       },
       company_info: {
-
+        designation: "",
+        description: "",
+        estalishment_date: "",
+        website_url: "",
       },
       onEditing: false,
     };
@@ -116,12 +145,29 @@ export default {
         });
     }
 
-    console.log(this.user_info)
+    console.log(this.user_info);
 
-    if (this.user_type === "COMPANY") {
-      null
+    if (this.user_info.user_type === "COMPANY") {
+      await axios
+        .get("companies/" + this.user_info.pk)
+        .then((response) => {
+          console.log("hey")
+          this.company_info.designation = response.data.company.designation;
+          this.company_info.description = response.data.company.description;
+          this.company_info.estalishment_date = response.data.company.estalishment_date;
+          this.company_info.website_url = response.data.company.website_url;
+          console.log(this.company_info.website_url)
+        })
+        .catch((error) => {
+          if (error.response) {
+            for (const property in error.response.data) {
+              this.errors.push(`${property}: ${error.response.data[property]}`);
+            }
+          } else if (error.message) {
+            this.errors.push("Something went wrong. Please try again");
+          }
+        });
     }
-
   },
   methods: {
     editUserProfileData() {
@@ -136,11 +182,11 @@ export default {
         },
       };
 
-      localStorage.setItem("phone_number", this.phone_number);
-      localStorage.setItem("email", this.email);
+      localStorage.setItem("phone_number", this.user_info.phone_number);
+      localStorage.setItem("email", this.user_info.email);
 
       axios
-        .put("account/" + this.pk, formData)
+        .put("account/" + this.user_info.pk, formData)
         .then(() => {
           console.log("success");
         })
