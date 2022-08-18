@@ -26,11 +26,10 @@
             v-model="password"
             type="password"
             class="form-control"
-            id="exampleInputPassword1"
           />
         </div>
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label"
+          <label class="form-label"
             >Repeat password:</label
           >
           <input
