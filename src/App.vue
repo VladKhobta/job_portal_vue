@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
+    <div class="container-xxl">
       <router-link to="/" class="navbar-brand">Job Portal</router-link>
       <button
         class="navbar-toggler"
@@ -70,9 +70,9 @@
     </div>
   </nav>
 
-
-  <div class="mt-3"/>
-  <router-view> </router-view>
+  <div class="container-xxl mt-5">
+    <router-view> </router-view>
+  </div>
 </template>
 
 <script>

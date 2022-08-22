@@ -6,6 +6,8 @@ import LogInView from "../views/LogInView.vue";
 import ProfileView from "../views/ProfileView.vue";
 import LogOutView from "../views/LogOutView.vue";
 import VacancyPostingView from "../views/VacancyPostingView.vue";
+import CompanyVacanciesView from "../views/CompanyVacanciesView.vue";
+import VacancyView from "../views/VacancyView.vue";
 
 const routes = [
   {
@@ -42,6 +44,19 @@ const routes = [
     path: "/vacancy_posting",
     name: "VacancyPostingView",
     component: VacancyPostingView,
+  },
+
+  {
+    path: "/company_vacancies",
+    name: "CompanyVacansiesView",
+    component: CompanyVacanciesView,
+  },
+
+  {
+    path: "/vacancies/:id",
+    name: "VacancyView",
+    props: true,
+    component: VacancyView,
   }
 ];
 

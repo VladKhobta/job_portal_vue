@@ -1,95 +1,121 @@
 <template>
   <div class="row">
-    <div class="col" />
-    <div class="col-3">
+    <div class="col-8">
       <h3 class="">Account</h3>
       <form>
-        <input
-          :disabled="!onEditing"
-          v-model="this.user_info.email"
-          type="email"
-          class="form-control mb-2"
-        />
-        <input
-          :disabled="!onEditing"
-          v-model="this.user_info.phone_number"
-          type="tel"
-          class="form-control mb-2"
-        />
+        <div class="mb-2 row">
+          <label class="col-2 col-form-label">Email adress</label>
+          <input
+            readonly
+            v-model="this.user_info.email"
+            type="email"
+            class="col form-control-plaintext"
+          />
+        </div>
+        <div class="mb-2 row">
+          <label class="col-2 col-form-label">Phone number</label>
+
+          <input
+            readonly
+            v-model="this.user_info.phone_number"
+            type="tel"
+            class="col form-control-plaintext"
+          />
+        </div>
+
         <div v-if="this.user_info.user_type === 'APPLICANT'">
-          <input
-            :disabled="!onEditing"
-            v-model="this.candidate_info.first_name"
-            type="text"
-            class="form-control mb-2"
-          />
-          <input
-            :disabled="!onEditing"
-            v-model="this.candidate_info.last_name"
-            type="text"
-            class="form-control mb-2"
-          />
+          <div class="row mb-3">
+            <label class="col-2 col-form-label">First name</label>
+            <input
+              :disabled="!onEditing"
+              v-model="this.candidate_info.first_name"
+              type="text"
+              class="col form-control"
+            />
+          </div>
+          <div class="row mb-2">
+            <label class="col-2 col-form-label">Last name</label>
+            <input
+              :disabled="!onEditing"
+              v-model="this.candidate_info.last_name"
+              type="text"
+              class="col form-control"
+            />
+          </div>
+          <div class="row mb-2">
+            <label class="col-2 col-form-label">Salary</label>
           <input
             :disabled="!onEditing"
             v-model="this.candidate_info.current_salary"
             type="number"
-            class="form-control mb-2"
-          />
+            class="col form-control"
+          /></div>
         </div>
         <div v-else>
+          <div class="row mb-2">
+            <label class="col-2 col-form-label">Designation</label>
           <input
-            :disabled="!onEditing"
+            readonly
             v-model="this.company_info.designation"
             type="text"
-            class="form-control mb-2"
-          />
+            class="col form-control-plaintext"
+          /></div>
+          <div class="row mb-2">
+            <label class="col-2 col-form-label">Description</label>
           <input
             :disabled="!onEditing"
             v-model="this.company_info.description"
             type="text"
-            class="form-control mb-2"
-          />
+            class="col form-control"
+          /></div>
+          <div class="row mb-2">
+            <label class="col-2 col-form-label">Establishment date</label>
           <input
             :disabled="!onEditing"
             v-model="this.company_info.establishment_date"
-            type="number"
-            class="form-control mb-2"
-          />
+            type="text"
+            class="col form-control"
+          /></div>
+          <div class="row mb-2">
+            <label class="col-2 col-form-label">Website</label>
           <input
             :disabled="!onEditing"
             v-model="this.company_info.website_url"
             type="text"
-            class="form-control mb-2"
-          />
+            class="col form-control"
+          /></div>
         </div>
 
         <button
           :disabled="onEditing"
           @click="editUserProfileData"
           type="button"
-          class="btn btn-primary me-2"
+          class="btn btn-danger mb-2 me-3"
         >
           Edit
         </button>
         <button
           @click.prevent="saveChanges"
           v-if="onEditing"
-          class="btn btn-primary"
+          class="btn btn-success mb-2"
         >
           Save
         </button>
       </form>
 
       <div v-if="user_info.user_type === 'COMPANY'">
-        <button class="btn btn-primary mt-2">
+        <button class="btn btn-primary me-2 mb-3">
           <router-link to="/vacancy_posting" class="nav-link active"
             >Post new vacancy</router-link
           >
         </button>
+        <button class="btn btn-primary mb-3">
+          <router-link to="/company_vacancies" class="nav-link active"
+            >Our vacancies</router-link
+          >
+        </button>
       </div>
     </div>
-
-    <div class="col" />
   </div>
 </template>
 
@@ -114,7 +140,7 @@ export default {
       company_info: {
         designation: "",
         description: "",
-        estalishment_date: "",
+        establishment_date: "",
         website_url: "",
       },
       onEditing: false,
@@ -151,12 +177,13 @@ export default {
       await axios
         .get("companies/" + this.user_info.pk)
         .then((response) => {
-          console.log("hey")
+          console.log("hey");
           this.company_info.designation = response.data.company.designation;
           this.company_info.description = response.data.company.description;
-          this.company_info.estalishment_date = response.data.company.estalishment_date;
+          this.company_info.establishment_date =
+            response.data.company.establishment_date;
           this.company_info.website_url = response.data.company.website_url;
-          console.log(this.company_info.website_url)
+          console.log(this.company_info.website_url);
         })
         .catch((error) => {
           if (error.response) {
@@ -175,31 +202,33 @@ export default {
     },
 
     saveChanges() {
-      const formData = {
-        user: {
-          email: this.email,
-          phone_number: this.phone_number,
-        },
-      };
+      if (this.user_info.user_type === "COMPANY") {
+        const formData = {
+          company: {
+            designation: this.company_info.designation,
+            description: this.company_info.description,
+            establishment_date: this.company_info.establishment_date,
+            website_url: this.company_info.website_url,
+          },
+        };
 
-      localStorage.setItem("phone_number", this.user_info.phone_number);
-      localStorage.setItem("email", this.user_info.email);
-
-      axios
-        .put("account/" + this.user_info.pk, formData)
-        .then(() => {
+        axios.put("companies/" + this.user_info.pk, formData).then(() => {
           console.log("success");
-        })
-        .catch((error) => {
-          if (error.response) {
-            for (const property in error.response.data) {
-              this.errors.push(`${property}: ${error.response.data[property]}`);
-            }
-          } else if (error.message) {
-            this.errors.push("Something went wrong. Please try again");
-          }
         });
+      }
 
+      if (this.user_info.user_type === "APPLICANT") {
+        const formData = {
+          candidate: {
+            first_name: this.candidate_info.first_name,
+            last_name: this.candidate_info.last_name,
+            current_salary: this.candidate_info.current_salary,
+          },
+        };
+        axios.put("candidates/" + this.user_info.pk, formData).then(() => {
+          console.log("success");
+        });
+      }
       this.onEditing = !this.onEditing;
     },
   },

@@ -47,6 +47,14 @@
     </div>
     <div class="col" />
   </div>
+
+  <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column mb-3">
+      <div class="p-2">Flex item bigger</div>
+      <div class="p-2">Flex item 2</div>
+      <div class="p-2">Flex item 3</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -88,7 +96,7 @@ export default {
           localStorage.setItem("user_id", user_id);
           localStorage.setItem("email", email);
           localStorage.setItem("phone_number", phone_number);
-          localStorage.setItem("user_type", user_type)
+          localStorage.setItem("user_type", user_type);
           const toPath = this.$route.query.to || "/";
           this.$router.push(toPath);
         })
@@ -101,8 +109,6 @@ export default {
             this.errors.push("Something went wrong. Please try again");
           }
         });
-      
-      
     },
   },
 };

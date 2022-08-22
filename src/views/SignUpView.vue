@@ -1,20 +1,12 @@
 <template>
   <div class="row">
-    <div class="col" />
-    <div class="col-3">
+    <div class="col-4" />
+    <div class="col-4 align-self-center">
       <form>
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address:</label
-          >
-          <input
-            v-model="email"
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
+          <label class="form-label">Email address:</label>
+          <input v-model="email" type="email" class="form-control" />
+          <div class="form-text">
             We'll never share your email with anyone else.
           </div>
         </div>
@@ -22,22 +14,20 @@
           <label for="exampleInputPassword1" class="form-label"
             >Password:</label
           >
-          <input
-            v-model="password"
-            type="password"
-            class="form-control"
-          />
+          <input v-model="password" type="password" class="form-control" />
         </div>
-        <div class="mb-3">
-          <label class="form-label"
-            >Repeat password:</label
-          >
-          <input
-            v-model="password2"
-            type="password"
-            class="form-control"
-            id="exampleInputPassword2"
-          />
+
+        <label class="form-label">Repeat password:</label>
+        <input v-model="password2" type="password" class="mb-3 form-control" />
+
+        <label class="form-label">Phone number:</label>
+        <input v-model="phone_number" type="tel" class="mb-3 form-control" />
+
+        <div v-if="!imEmployee">
+          <div class="mb-3">
+            <label class="form-label">Designation of company:</label>
+            <input v-model="designation" type="text" class="form-control" />
+          </div>
         </div>
         <div class="notification is-danger" v-if="errors.length">
           <div v-for="error in errors" v-bind:key="error">
@@ -46,26 +36,25 @@
             </div>
           </div>
         </div>
-        <div class="mb-3"></div>
-        <div class="mb-3">
-          <div class="row">
-            <button
-              type="button"
-              class="btn btn-sm btn-lg btn-primary col mr-4"
-              @click="toggle"
-              :disabled="imEmployee"
-            >
-              I'm employee
-            </button>
-            <button
-              type="button"
-              class="btn btn-sm btn-lg btn-primary col"
-              @click="toggle"
-              :disabled="!imEmployee"
-            >
-              I'm employer
-            </button>
-          </div>
+       
+      </form>
+       <div class="btn-group mb-3" role="group">
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="toggle"
+            :disabled="imEmployee"
+          >
+            I'm employee
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="toggle"
+            :disabled="!imEmployee"
+          >
+            I'm employer
+          </button>
         </div>
         <button
           @click.prevent="submitSignupForm"
@@ -74,9 +63,7 @@
         >
           Submit
         </button>
-      </form>
     </div>
-    <div class="col" />
   </div>
 </template>
 
@@ -91,6 +78,8 @@ export default {
       email: "",
       password: "",
       password2: "",
+      designation: "",
+      phone_number: "",
       errors: [],
     };
   },
@@ -113,7 +102,9 @@ export default {
           user: {
             email: this.email,
             password: this.password,
-            user_type: user_type
+            user_type: user_type,
+            designation: this.designation,
+            phone_number: this.phone_number,
           },
         };
         axios
