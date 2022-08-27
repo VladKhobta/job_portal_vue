@@ -39,7 +39,7 @@
         <button
           @click.prevent="submitLoginForm"
           type="submit"
-          class="btn btn-primary"
+          class="btn btn-dark"
         >
           Submit
         </button>

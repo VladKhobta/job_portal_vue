@@ -41,7 +41,7 @@
        <div class="btn-group mb-3" role="group">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-dark"
             @click="toggle"
             :disabled="imEmployee"
           >
@@ -49,7 +49,7 @@
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-dark"
             @click="toggle"
             :disabled="!imEmployee"
           >
@@ -59,7 +59,7 @@
         <button
           @click.prevent="submitSignupForm"
           type="submit"
-          class="btn btn-primary"
+          class="btn btn-dark"
         >
           Submit
         </button>

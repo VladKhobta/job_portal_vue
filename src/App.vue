@@ -1,28 +1,13 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-xxl">
-      <router-link to="/" class="navbar-brand">Job Portal</router-link>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="d-flex ms-auto">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+      <div class="collapse navbar-collapse">
+        <router-link to="/" class="navbar-brand me-5">Job Portal</router-link>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class="nav-item"><router-link
+          class="nav-item nav-link active"
+          to="/search"
+        >Search
+        </router-link></li></ul>
 
         <ul
           v-if="$store.state.isAuthenticated"
@@ -82,6 +67,12 @@ export default {
   name: "App",
   components: {},
 
+  data() {
+    return {
+      searchRequest: "",
+    };
+  },
+
   beforeCreate() {
     this.$store.commit("initializeStore");
 
@@ -92,6 +83,8 @@ export default {
       axios.defaults.headers.common["Authorization"] = "";
     }
   },
+
+  methods: {},
 };
 </script>
 
