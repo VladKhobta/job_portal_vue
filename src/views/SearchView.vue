@@ -1,6 +1,4 @@
 <template>
-  <div class="row">
-    <div class="col-8">
       <h1>Searching vacancies</h1>
       <form class="d-flex mb-3" role="search">
         <input
@@ -22,8 +20,6 @@
         :key="vacancy.id"
         :vacancy="vacancy"
       />
-    </div>
-  </div>
 </template>
 
 <script>

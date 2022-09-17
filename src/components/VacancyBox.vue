@@ -24,9 +24,12 @@ export default {
   props: {
     vacancy: Object,
   },
-  mounted() {
-    
+
+  data() {
+    return {};
   },
+
+  mounted() {},
 };
 </script>
 

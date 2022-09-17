@@ -3,11 +3,13 @@
     <div class="container-xxl">
       <div class="collapse navbar-collapse">
         <router-link to="/" class="navbar-brand me-5">Job Portal</router-link>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class="nav-item"><router-link
-          class="nav-item nav-link active"
-          to="/search"
-        >Search
-        </router-link></li></ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link class="nav-item nav-link active" to="/search"
+              >Search
+            </router-link>
+          </li>
+        </ul>
 
         <ul
           v-if="$store.state.isAuthenticated"
@@ -55,8 +57,13 @@
     </div>
   </nav>
 
-  <div class="container-xxl mt-5">
-    <router-view> </router-view>
+  <div class="container-xl mt-5">
+    <div class="row">
+      <div class="col" />
+      <div class="col-8">
+        <router-view> </router-view>
+      </div>
+    <div class="col" /></div>
   </div>
 </template>
 

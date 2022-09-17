@@ -9,6 +9,7 @@ import VacancyPostingView from "../views/VacancyPostingView.vue";
 import CompanyVacanciesView from "../views/CompanyVacanciesView.vue";
 import VacancyView from "../views/VacancyView.vue";
 import SearchView from "../views/SearchView.vue";
+import ResponsePostingView from "../views/ResponsePostingView.vue";
 
 const routes = [
   {
@@ -65,7 +66,14 @@ const routes = [
     name: "SearchView",
     props: true,
     component: SearchView,
+  },
+
+  {
+    path: "/response_posting/",
+    props: true,
+    component: ResponsePostingView,
   }
+
 ];
 
 const router = createRouter({
