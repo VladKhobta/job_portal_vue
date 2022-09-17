@@ -23,7 +23,7 @@
         <label class="form-label">Phone number:</label>
         <input v-model="phone_number" type="tel" class="mb-3 form-control" />
 
-        <div v-if="!imEmployee">
+        <div v-if="!isEmployee">
           <div class="mb-3">
             <label class="form-label">Designation of company:</label>
             <input v-model="designation" type="text" class="form-control" />
@@ -43,7 +43,7 @@
             type="button"
             class="btn btn-dark"
             @click="toggle"
-            :disabled="imEmployee"
+            :disabled="isEmployee"
           >
             I'm employee
           </button>
@@ -51,7 +51,7 @@
             type="button"
             class="btn btn-dark"
             @click="toggle"
-            :disabled="!imEmployee"
+            :disabled="!isEmployee"
           >
             I'm employer
           </button>
@@ -66,52 +66,78 @@
     </div>
   </div> -->
 
-
-<form>
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Email</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" v-model="email">
-    </div>
-  </div>
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" v-model="password">
-    </div>
-  </div>
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Repeat password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" v-model="password2">
-    </div>
-  </div>
-  <div class="row mb-3">
-    <label class="col-sm-2 col-form-label">Phone number</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" v-model="phone_number">
-    </div>
-  </div>
-  <fieldset class="row mb-3">
-    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-    <div class="col-sm-10">
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="true" v-model="isEmployee" checked>
-        <label class="form-check-label">
-          I'm an employee
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="false" v-model="isEmployee">
-        <label class="form-check-label">
-          I'm an employer
-        </label>
+  <form>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" v-model="email" />
       </div>
     </div>
-  </fieldset>
-  <button type="submit" class="btn btn-dark">Sign up</button>
-</form>
-  
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" v-model="password" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Repeat password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" v-model="password2" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Phone number</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" v-model="phone_number" />
+      </div>
+    </div>
+    <div v-if="!isEmployee">
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Designation</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" v-model="designation" />
+        </div>
+      </div>
+    </div>
+    <div class="notification is-danger" v-if="errors.length">
+      <div v-for="error in errors" v-bind:key="error">
+        <div class="alert alert-danger" role="alert">
+          {{ error }}
+        </div>
+      </div>
+    </div>
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-2 pt-0">Yor purpose</legend>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="radio"
+            @click="isEmployee = true"
+            checked
+          />
+          <label class="form-check-label"> I'm an employee </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="radio"
+            @click="isEmployee = false"
+          />
+          <label class="form-check-label"> I'm an employer </label>
+        </div>
+      </div>
+    </fieldset>
+    <button
+      type="submit"
+      class="btn btn-dark"
+      @click.prevent="submitSignupForm"
+    >
+      Sign up
+    </button>
+  </form>
 </template>
 
 <script>
@@ -137,13 +163,13 @@ export default {
         this.errors.push("The email is missing");
       }
       if (this.password === "") {
-        this.errors.push("The password is too short");
+        this.errors.push("Password: The password is too short");
       }
       if (this.password !== this.password2) {
-        this.errors.push("The passwords doesn't match");
+        this.errors.push("Password: The passwords doesn't match");
       }
       if (!this.errors.length) {
-        const user_type = this.imEmployee ? "APPLICANT" : "COMPANY";
+        const user_type = this.isEmployee ? "APPLICANT" : "COMPANY";
 
         const formData = {
           user: {
@@ -154,6 +180,8 @@ export default {
             phone_number: this.phone_number,
           },
         };
+        console.log(this.isEmployee);
+        console.log(formData);
         axios
           .post("account/", formData)
           .then(() => {
@@ -177,8 +205,8 @@ export default {
 
   watch: {
     isEmployee(newVal) {
-      console.log(newVal)
-    }
-  }
+      console.log(newVal);
+    },
+  },
 };
 </script>
