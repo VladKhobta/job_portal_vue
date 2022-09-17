@@ -12,7 +12,6 @@
           <button>Edit</button>
         </div>
         <div v-if="user_type === 'APPLICANT'">
-          
           <div v-if="showModalResponseForm">
             <div
               class="modal fade"
@@ -49,9 +48,18 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-dark" @click="showResponseForm">
+          <router-link
+            :to="{
+              name: 'ResponsePostingView',
+              params: {
+                vacancy_id: vacancy.id,
+                vacancy_company: vacancy.company,
+              },
+            }"
+            class="btn btn-dark"
+          >
             Respond
-          </button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -88,7 +96,9 @@ export default {
     this.getVacancy();
   },
 
-  mounted() {},
+  mounted() {
+    console.log(this.id)
+  },
 
   methods: {
     async getVacancy() {
@@ -102,21 +112,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-
-    showResponseForm() {
-      this.showModalResponseForm = !this.showModalResponseForm;
-      console.log(this.showModalResponseForm);
-    },
-
-    respondAction() {
-      const formData = {
-        vacancy: this.id,
-        company: this.vacancy.company,
-        candidate: localStorage.getItem("user_id"),
-      };
-
-      axios.post("/responses", formData).then(console.log("Nice"));
     },
   },
 };

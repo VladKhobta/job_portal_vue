@@ -10,6 +10,7 @@ import CompanyVacanciesView from "../views/CompanyVacanciesView.vue";
 import VacancyView from "../views/VacancyView.vue";
 import SearchView from "../views/SearchView.vue";
 import ResponsePostingView from "../views/ResponsePostingView.vue";
+import ResponsesListView from "../views/ResponsesListView.vue"
 
 const routes = [
   {
@@ -70,8 +71,15 @@ const routes = [
 
   {
     path: "/response_posting/",
+    name: "ResponsePostingView",
     props: true,
     component: ResponsePostingView,
+  },
+
+  {
+    path: "/responses_list/",
+    name: "ResponsesListView",
+    component: ResponsesListView,
   }
 
 ];

@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <!-- <div class="row mb-3">
     <div class="col-4" />
     <div class="col-4 align-self-center">
       <form>
@@ -64,7 +64,54 @@
           Submit
         </button>
     </div>
+  </div> -->
+
+
+<form>
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" v-model="email">
+    </div>
   </div>
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" v-model="password">
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">Repeat password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" v-model="password2">
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">Phone number</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" v-model="phone_number">
+    </div>
+  </div>
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="true" v-model="isEmployee" checked>
+        <label class="form-check-label">
+          I'm an employee
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="false" v-model="isEmployee">
+        <label class="form-check-label">
+          I'm an employer
+        </label>
+      </div>
+    </div>
+  </fieldset>
+  <button type="submit" class="btn btn-dark">Sign up</button>
+</form>
+  
 </template>
 
 <script>
@@ -74,7 +121,7 @@ export default {
   name: "SignUpView",
   data() {
     return {
-      imEmployee: true,
+      isEmployee: true,
       email: "",
       password: "",
       password2: "",
@@ -126,10 +173,12 @@ export default {
           });
       }
     },
-
-    toggle() {
-      this.imEmployee = !this.imEmployee;
-    },
   },
+
+  watch: {
+    isEmployee(newVal) {
+      console.log(newVal)
+    }
+  }
 };
 </script>

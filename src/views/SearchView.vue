@@ -1,6 +1,6 @@
 <template>
       <h1>Searching vacancies</h1>
-      <form class="d-flex mb-3" role="search">
+      <form class="d-flex mb-2" role="search">
         <input
           class="form-control me-2"
           type="search"

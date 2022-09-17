@@ -1,14 +1,11 @@
 <template>
-  <div class="row">
-    <div class="col-8">
+
       <h3 class="mb-2">Vacancies</h3>
       <VacancyBox
         v-for="vacancy in companyVacancies.vacancies"
         :key="vacancy.id"
         :vacancy="vacancy"
       />
-    </div>
-  </div>
 </template>
 
 <script>
