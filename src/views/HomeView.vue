@@ -1,16 +1,18 @@
 <template>
-<transition appear>
-  <div v-if="isModalVisible" class="modal">
-    <div class="modal-body" >
-      gaayy
-    </div>
+<div id="app">
+  <div class="container">
+    <button class="btn btn-info" @click="showModal">show modal</button>
+    <div ref="modal">sheesh</div>
   </div>
-  </transition>
+</div>
+<button class="btn btn-dark" @click="showModal">Click</button>
 </template>
 
 <script>
 // import Modal from '@/components/Modal.vue';
 // import ModalForm from "../components/ResponseModal.vue";
+
+
 
 export default {
   components: {
@@ -20,12 +22,13 @@ export default {
 
   data() {
     return {
-      isModalVisible: true,
+      modalIsOpen: false,
     };
   },
   methods: {
     showModal() {
-      this.isModalVisible = true;
+      let element = this.$ref.modal.$el 
+      element.modal('show')
     },
     closeModal() {
       this.isModalVisible = false;
